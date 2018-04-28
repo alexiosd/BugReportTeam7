@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "bgt7",
       "styles": [
+        "../node_modules/bootstrap/scss/bootstrap.scss",
         "styles.css"
       ],
       "scripts": [],
