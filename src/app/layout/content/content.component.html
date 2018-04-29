@@ -4,35 +4,20 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Priority</th>
-        <th>Reporter</th>
-
-        <th>Date Crated</th>
-        <th>Status</th>
+        <th (click)="sort('title')">Title</th>
+        <th (click)="sort('priority')">Priority</th>
+        <th (click)="sort('reporter')">Reporter</th>
+        <th (click)="sort('date')">Date Created</th>
+        <th (click)="sort('status')">Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>test</td>
-         <td>test</td>
-          <td>test</td>
-      </tr>
-      <tr>
-         <td>John</td>
-        <td>Doe</td>
-        <td>test</td>
-         <td>test</td>
-          <td>test</td>
-      </tr>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>test</td>
-         <td>test</td>
-          <td>test</td>
+      <tr *ngFor="let bug of bugs | orderBy: key: reverse">
+        <td>{{bug.title}}</td>
+        <td>{{bug.priority}}</td>
+        <td>{{bug.reporter}}</td>
+        <td>{{bug.date}}</td>
+        <td>{{bug.status}}</td>
       </tr>
     </tbody>
   </table>
