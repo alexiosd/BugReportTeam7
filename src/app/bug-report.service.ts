@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -8,8 +9,17 @@ export class BugReportService {
 
   constructor(private http: HttpClient) { }
 
-  getBugs() {
-    return this.http.get(this.endpoint)
+  getBugs(): Observable<Array<BugProperties>> {
+    return this.http.get<Array<BugProperties>>(this.endpoint)
   }
+
+}
+
+export interface BugProperties {
+  title: string,
+  priority: string,
+  reporter: string,
+  dateCreated: string,
+  status: string
 
 }

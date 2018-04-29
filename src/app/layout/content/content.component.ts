@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BugReportService } from '../../bug-report.service';
+import { BugReportService, BugProperties } from '../../bug-report.service';
 
 @Component({
   selector: 'bgt7-content',
@@ -11,12 +11,14 @@ export class ContentComponent implements OnInit {
   constructor(private bugs: BugReportService) { }
 
   key: String = 'title';
+  bugsData: BugProperties[];
+
   direction: String = 'asc'; // "asc", "des"
 
 
   ngOnInit() {
     this.bugs.getBugs().subscribe((data)=> {
-      console.log('>BUGS DATA>', data);
+      this.bugsData = data; 
     })
   }
 
