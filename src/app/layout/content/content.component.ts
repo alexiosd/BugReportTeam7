@@ -22,7 +22,7 @@ export class ContentComponent implements OnInit {
 
   sort(key) {
     if (this.key === key) {
-      this.direction = (this.direction === 'asc'?'des':'asc');
+      this.direction = (this.direction === 'asc' ? 'desc' : 'asc');
     }
     else {
       this.direction = 'asc';
@@ -31,10 +31,10 @@ export class ContentComponent implements OnInit {
     this.getTheBugs(this.key, this.direction);
   }
 
-  getTheBugs(key:String, dir: String) {
-    this.bugs.getBugs(key, dir).subscribe((data)=> {
+  getTheBugs(key: String, dir: String) {
+    this.bugs.getBugs(key, dir).subscribe((data) => {
       this.bugsData = data;
-    })
+    });
   }
 
 }

@@ -10,16 +10,15 @@ export class BugReportService {
   constructor(private http: HttpClient) { }
 
   getBugs(sort: String, dir: String): Observable<Array<BugProperties>> {
-    return this.http.get<Array<BugProperties>>(`${this.endpoint}?sort=${sort},${dir}`)
+    return this.http.get<Array<BugProperties>>(`${this.endpoint}?sort=${sort},${dir}`);
   }
 
 }
 
 export interface BugProperties {
-  title: string,
-  priority: string,
-  reporter: string,
-  dateCreated: string,
-  status: string
-
+  title: string;
+  priority: string;
+  reporter: string;
+  dateCreated: string;
+  status: string;
 }
