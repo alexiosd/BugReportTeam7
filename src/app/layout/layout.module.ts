@@ -1,13 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WrapperComponent } from './wrapper/wrapper.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { NgModule } from '@angular/core';
+import { BugReportService } from '../bug-report.service';
 import { ContentComponent } from './content/content.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
+  ],
+  providers:[
+    BugReportService
   ],
   declarations: [WrapperComponent, HeaderComponent, FooterComponent, ContentComponent],
   exports: [

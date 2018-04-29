@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
     './app.component.css'
 ]
 })
-export class AppComponent {
+export class AppComponent{
   title = 'bgt7';
 }
