@@ -17,9 +17,7 @@ export class ContentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.bugs.getBugs().subscribe((data)=> {
-      this.bugsData = data; 
-    })
+    getTheBugs(this.key, this.direction);
   }
 
   sort(key) {
@@ -30,7 +28,13 @@ export class ContentComponent implements OnInit {
       this.direction = 'asc';
     }
     this.key = key;
+    getTheBugs(this.key, this.direction);
+  }
 
+  getTheBugs(key:String, dir: String) {
+    this.bugs.getBugs(key, dir).subscribe((data)=> {
+      this.bugsData = data;
+    })
   }
 
 }
