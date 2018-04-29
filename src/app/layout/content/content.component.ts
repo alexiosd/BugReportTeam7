@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ContentComponent implements OnInit {
 
   key: String = 'title';
-  reverse: Boolean = false;
+  direction: String = 'asc'; // "asc", "des"
 
   constructor() { }
 
@@ -16,8 +16,14 @@ export class ContentComponent implements OnInit {
   }
 
   sort(key) {
+    if (this.key === key) {
+      (this.direction === 'asc'?'des':'asc');
+    }
+    else {
+      this.direction = 'asc';
+    }
     this.key = key;
-    this.reverse = !this.reverse;
+
   }
 
 }
