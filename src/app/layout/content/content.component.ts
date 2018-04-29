@@ -18,7 +18,7 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() {
     this.bugs.getBugs().subscribe((data)=> {
-      this.bugsData = data; 
+      this.bugsData = data;
     })
   }
 
