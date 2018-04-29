@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentComponent implements OnInit {
 
+  key: String = 'title';
+  reverse: Boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
 }
