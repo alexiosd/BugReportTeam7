@@ -17,7 +17,7 @@ export class ContentComponent implements OnInit {
 
 
   ngOnInit() {
-    getTheBugs(this.key, this.direction);
+    this.getTheBugs(this.key, this.direction);
   }
 
   sort(key) {
@@ -28,7 +28,7 @@ export class ContentComponent implements OnInit {
       this.direction = 'asc';
     }
     this.key = key;
-    getTheBugs(this.key, this.direction);
+    this.getTheBugs(this.key, this.direction);
   }
 
   getTheBugs(key:String, dir: String) {
