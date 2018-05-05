@@ -6,16 +6,19 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReportBugComponent } from './report-bug/report-bug.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
-  providers:[
+  providers: [
     BugReportService
   ],
-  declarations: [WrapperComponent, HeaderComponent, FooterComponent, ContentComponent],
+  declarations: [WrapperComponent, HeaderComponent, FooterComponent, ContentComponent, ReportBugComponent],
   exports: [
     WrapperComponent
   ]

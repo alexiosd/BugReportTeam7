@@ -23,8 +23,7 @@ export class ContentComponent implements OnInit {
   sort(key) {
     if (this.key === key) {
       this.direction = (this.direction === 'asc' ? 'desc' : 'asc');
-    }
-    else {
+    } else {
       this.direction = 'asc';
     }
     this.key = key;
