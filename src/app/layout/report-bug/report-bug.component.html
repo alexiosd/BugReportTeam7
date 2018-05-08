@@ -4,67 +4,45 @@
 
       <div class="col-md-4 mb-3">
         <label class="form-control-label">Title</label>
-        <input #title="ngModel" class="form-control" type="text" name="title" [ngModel]="model.title" (ngModelChange)="model.title = capitalize($event)" minlength="3" required>
+        <input #title="ngModel" class="form-control" type="text" name="title" [ngModel]="model.title" minlength="3" required>
         <div *ngIf="title.invalid && title.dirty" class="invalid-feedback">
           Field is required
         </div>
       </div>
 
       <div class="col-md-4 mb-3">
-        <label class="form-control-label">Last Name</label>
-        <input #bugDescription="ngModel" lass="form-control" type="text" name="bugDescription" [ngModel]="model.bugDescription" required>
+        <label class="form-control-label">Description</label>
+        <input #bugDescription="ngModel" class="form-control" type="text" name="bugDescription" [ngModel]="model.bugDescription" required>
         <div *ngIf="bugDescription.invalid && bugDescription.dirty" class="invalid-feedback">
           Field is required
-      </div>
-      </div>
-
-    </div>
-
-
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" #isExperienced="ngModel" type="checkbox" [(ngModel)]="model.isExperienced" name="isExperienced" required>
-        <label class="form-check-label">I have experience > 2 yrs </label>
-        <div *ngIf="isExperienced.invalid && isExperienced.dirty" class="invalid-feedback">
-          Field is required
+        </div>
       </div>
     </div>
-    </div>
+
   <div class="form-group">
-    <label class="custom-control-label">Angular Preference</label>
+    <label class="form-check-label">Priority</label>
+    <select name="priority" [(ngModel)]="model.priority">
+      <option [ngValue]="null">Select</option>
+      <option [ngValue]="minor">Minor</option>
+      <option [ngValue]="major">Major</option>
+      <option [ngValue]="critical">Critical</option>
+    </select>
     <br/>
-      <input type="radio" name="angular" value="1" required [(ngModel)]="model.angular" #angular="ngModel" id="angularjs" required>
-    <label for="angularjs">angularJs</label>
+    <label class="form-check-label">Reporter</label>
+    <select name="reporter" [(ngModel)]="model.reporter">
+      <option [ngValue]="null">Select</option>
+      <option [ngValue]="qa">QA</option>
+      <option [ngValue]="po">PO</option>
+      <option [ngValue]="dev">DEV</option>
+    </select>
     <br/>
-      <input type="radio" name="angular" value="2" required [(ngModel)]="model.angular" #angular2="ngModel" id="angular" required>
-    <label for="angular">angular</label>
-    <div *ngIf="angular.invalid && angular.dirty" class="invalid-feedback">
-      Field is required
-    </div>
+    <label class="form-check-label">Status</label>
+    <select name="status" [(ngModel)]="model.status">
+      <option [ngValue]="null">Select</option>
+      <option [ngValue]="0">Ready for test</option>
+      <option [ngValue]="1">Done</option>
+      <option [ngValue]="2">Rejected</option>
+    </select>
   </div>
-    <div class="form-group" [ngClass]="{'has-error': !favouriteLanguageIsValid && favouriteLanguage.dirty}">
-      <label class="form-control-label">Favourite Language</label>
-      <br/>
-      <select #favouriteLanguage="ngModel" name="favouriteLanguage" [(ngModel)]="model.favouriteLanguage" required>
-        <option [ngValue]="null">Select</option>
-        <option *ngFor="let lang of programmingLanguages">
-          {{lang}}
-        </option>
-      </select>
-      <div *ngIf="!favouriteLanguageIsValid && favouriteLanguage.dirty" style="color:red">
-        Field is required
-      </div>
-    </div>
-    <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
-  </form>
-
-  {{form.value | json}}
-  <br /> {{model.title}}
-  <br /> The form is pristine {{form.pristine}} dirty={{title.dirty}}
-  <br /> pristine={{title.pristine}}
-  <br /> untouched={{title.untouched}}
-  <br /> touched={{title.touched}}
-  <br /> valid={{title.valid}}
-  <br /> invalid={{title.invalid}}
-  <br />
-
+  <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+</form>

@@ -8,12 +8,14 @@ import { WrapperComponent } from './wrapper/wrapper.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportBugComponent } from './report-bug/report-bug.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   providers: [
     BugReportService
