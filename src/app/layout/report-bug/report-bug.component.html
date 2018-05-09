@@ -1,7 +1,7 @@
-<form #form="ngForm" class="form" [class.was-validated]="form.invalid && form.dirty">
+<div class="container">
+  <form #form="ngForm" class="form" [class.was-validated]="form.invalid && form.dirty">
 
-    <div class="form-row" [ngClass]="{'has-error': title.invalid && title.dirty}">
-
+    <div class="form-group">
       <div class="col-md-4 mb-3">
         <label class="form-control-label">Title</label>
         <input #title="ngModel" class="form-control" type="text" name="title" [ngModel]="model.title" minlength="3" required>
@@ -9,8 +9,7 @@
           Field is required
         </div>
       </div>
-
-      <div class="col-md-4 mb-3">
+      <div class="col-md-12 mb-3">
         <label class="form-control-label">Description</label>
         <input #bugDescription="ngModel" class="form-control" type="text" name="bugDescription" [ngModel]="model.bugDescription" required>
         <div *ngIf="bugDescription.invalid && bugDescription.dirty" class="invalid-feedback">
@@ -19,30 +18,31 @@
       </div>
     </div>
 
-  <div class="form-group">
-    <label class="form-check-label">Priority</label>
-    <select name="priority" [(ngModel)]="model.priority">
-      <option [ngValue]="null">Select</option>
-      <option [ngValue]="minor">Minor</option>
-      <option [ngValue]="major">Major</option>
-      <option [ngValue]="critical">Critical</option>
-    </select>
-    <br/>
-    <label class="form-check-label">Reporter</label>
-    <select name="reporter" [(ngModel)]="model.reporter">
-      <option [ngValue]="null">Select</option>
-      <option [ngValue]="qa">QA</option>
-      <option [ngValue]="po">PO</option>
-      <option [ngValue]="dev">DEV</option>
-    </select>
-    <br/>
-    <label class="form-check-label">Status</label>
-    <select name="status" [(ngModel)]="model.status">
-      <option [ngValue]="null">Select</option>
-      <option [ngValue]="0">Ready for test</option>
-      <option [ngValue]="1">Done</option>
-      <option [ngValue]="2">Rejected</option>
-    </select>
-  </div>
-  <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
-</form>
+    <div class="form-group">
+      <label class="form-check-label">Priority</label>
+      <select name="priority" [(ngModel)]="model.priority">
+        <option [ngValue]="null">Select</option>
+        <option [ngValue]="minor">Minor</option>
+        <option [ngValue]="major">Major</option>
+        <option [ngValue]="critical">Critical</option>
+      </select>
+      <br/>
+      <label class="form-check-label">Reporter</label>
+      <select name="reporter" [(ngModel)]="model.reporter">
+        <option [ngValue]="null">Select</option>
+        <option [ngValue]="qa">QA</option>
+        <option [ngValue]="po">PO</option>
+        <option [ngValue]="dev">DEV</option>
+      </select>
+      <br/>
+      <label class="form-check-label">Status</label>
+      <select name="status" [(ngModel)]="model.status">
+        <option [ngValue]="null">Select</option>
+        <option [ngValue]="0">Ready for test</option>
+        <option [ngValue]="1">Done</option>
+        <option [ngValue]="2">Rejected</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>
