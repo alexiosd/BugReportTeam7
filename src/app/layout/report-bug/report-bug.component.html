@@ -1,5 +1,5 @@
 <div class="container">
-  <form #form="ngForm" class="form" [class.was-validated]="form.invalid && form.dirty">
+  <form #form="ngForm" class="form" (submit)="formSubmit(form)" [class.was-validated]="form.invalid && form.dirty">
 
     <div class="form-group">
       <div class="col-md-4 mb-3">
@@ -11,8 +11,8 @@
       </div>
       <div class="col-md-12 mb-3">
         <label class="form-control-label">Description</label>
-        <input #bugDescription="ngModel" class="form-control" type="text" name="bugDescription" [ngModel]="model.bugDescription" required>
-        <div *ngIf="bugDescription.invalid && bugDescription.dirty" class="invalid-feedback">
+        <textarea #description="ngModel" class="form-control" name="description" [ngModel]="model.description" required></textarea>
+        <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
           Field is required
         </div>
       </div>
@@ -20,28 +20,37 @@
 
     <div class="form-group">
       <label class="form-check-label">Priority</label>
-      <select name="priority" [(ngModel)]="model.priority">
-        <option [ngValue]="null">Select</option>
-        <option [ngValue]="minor">Minor</option>
-        <option [ngValue]="major">Major</option>
-        <option [ngValue]="critical">Critical</option>
+      <select #priority="ngModel" name="priority" [(ngModel)]="model.priority" required (change)="priorityIsValid($event)">
+        <option [ngValue]="null" disabled>Select</option>
+        <option [ngValue]="0">Minor</option>
+        <option [ngValue]="1">Major</option>
+        <option [ngValue]="2">Critical</option>
       </select>
+      <div *ngIf="!priorityValid && priority.dirty" class="invalid-feedback">
+        Field is required
+      </div>
       <br/>
       <label class="form-check-label">Reporter</label>
-      <select name="reporter" [(ngModel)]="model.reporter">
-        <option [ngValue]="null">Select</option>
-        <option [ngValue]="qa">QA</option>
-        <option [ngValue]="po">PO</option>
-        <option [ngValue]="dev">DEV</option>
+      <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter" required (change)="reporterIsValid($event)">
+        <option [ngValue]="null" disabled>Select</option>
+        <option ngValue="QA">QA</option>
+        <option ngValue="PO">PO</option>
+        <option ngValue="DEV">DEV</option>
       </select>
+      <div *ngIf="!reporterValid && reporter.dirty" class="invalid-feedback">
+        Field is required
+      </div>
       <br/>
       <label class="form-check-label">Status</label>
-      <select name="status" [(ngModel)]="model.status">
-        <option [ngValue]="null">Select</option>
+      <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="statusIsValid($event)">
+        <option [ngValue]="null" disabled>Select</option>
         <option [ngValue]="0">Ready for test</option>
         <option [ngValue]="1">Done</option>
         <option [ngValue]="2">Rejected</option>
       </select>
+      <div *ngIf="!statusValid && status.dirty" class="invalid-feedback">
+        Field is required when the reporter is QA.
+      </div>
     </div>
     <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
   </form>
