@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bug } from './bug.model';
 import { NgForm } from '@angular/forms';
+import { BugReportService, BugProperties } from '../../bug-report.service';
 
 @Component({
   selector: 'bgt7-report-bug',
@@ -13,8 +14,9 @@ export class ReportBugComponent implements OnInit {
   priorityValid: boolean;
   reporterValid: boolean;
   statusValid: boolean;
+  bugData: BugProperties;
 
-  constructor() { }
+  constructor(private bugs: BugReportService) { }
 
   ngOnInit() {
     this.model = new Bug();
@@ -46,7 +48,9 @@ export class ReportBugComponent implements OnInit {
       return;
     }
 
-    console.log(form.value);
+    this.bugs.postBug(this.model).subscribe((data) => {
+      this.bugData = data;
+    });
   }
 
 }
