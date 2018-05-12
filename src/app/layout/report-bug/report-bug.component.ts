@@ -14,7 +14,7 @@ export class ReportBugComponent implements OnInit {
   priorityValid: boolean;
   reporterValid: boolean;
   statusValid: boolean;
-  bugData: BugProperties;
+  bugData: BugProperties[];
 
   constructor(private bugs: BugReportService) { }
 
@@ -42,8 +42,8 @@ export class ReportBugComponent implements OnInit {
     this.priorityIsValid(this.model.priority);
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
-  debugger;
-  if (!form.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
+    debugger;
+    if (!form.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
       console.log('error');
       return;
     }

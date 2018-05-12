@@ -4,14 +4,14 @@
     <div class="form-group">
       <div class="col-md-4 mb-3">
         <label class="form-control-label">Title</label>
-        <input #title="ngModel" class="form-control" type="text" name="title" [ngModel]="model.title" minlength="3" required>
+        <input #title="ngModel" class="form-control" type="text" name="title" [(ngModel)]="model.title" minlength="3" required>
         <div *ngIf="title.invalid && title.dirty" class="invalid-feedback">
           Field is required
         </div>
       </div>
       <div class="col-md-12 mb-3">
         <label class="form-control-label">Description</label>
-        <textarea #description="ngModel" class="form-control" name="description" [ngModel]="model.description" required></textarea>
+        <textarea #description="ngModel" class="form-control" name="description" [(ngModel)]="model.description" required></textarea>
         <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
           Field is required
         </div>
