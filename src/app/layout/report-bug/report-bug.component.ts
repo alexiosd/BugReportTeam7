@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Bug } from './bug.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BugReportService, BugProperties } from '../../bug-report.service';
 
 @Component({
@@ -10,20 +10,33 @@ import { BugReportService, BugProperties } from '../../bug-report.service';
 })
 export class ReportBugComponent implements OnInit {
 
-  model: Bug;
+  bugForm: FormGroup;
+  model = new Bug();
   priorityValid: boolean;
   reporterValid: boolean;
   statusValid: boolean;
   bugData: BugProperties[];
+  priorities = ['minor', 'major', 'critical'];
+  reporter = ['QA', 'PO', 'DEV'];
+  status = ['Ready for test', 'Done', 'Rejected'];
 
   constructor(private bugs: BugReportService) { }
 
   ngOnInit() {
+    this.bugForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      priority: new FormControl('', Validators.required),
+      reporter: new FormControl('', Validators.required),
+      status: new FormControl()
+    });
+    /*
+    )
     this.model = new Bug();
     this.model.priority = null;
     this.model.reporter = null;
     this.model.status = null;
-    debugger;
+    debugger;*/
   }
 
   priorityIsValid(event) {
