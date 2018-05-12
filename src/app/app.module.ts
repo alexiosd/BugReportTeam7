@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { LayoutModule } from './layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes';
+import { CoreModule } from './core/core.module';
+import { BugsModule } from './features/bugs/bugs.module';
 
 
 
@@ -13,7 +14,8 @@ import { routes } from './routes';
   ],
   imports: [
     BrowserModule,
-    LayoutModule,
+    CoreModule,
+    BugsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [  ],

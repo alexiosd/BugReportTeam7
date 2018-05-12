@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Bug } from './layout/report-bug/bug.model';
+import { Bug } from './report-bug/bug.model';
 
 
 
@@ -16,7 +16,6 @@ export class BugReportService {
   }
 
   postBug(bug: Bug): Observable<Array<BugProperties>> {
-    debugger;
     return this.http.post<Array<BugProperties>>(this.endpoint, bug);
   }
 

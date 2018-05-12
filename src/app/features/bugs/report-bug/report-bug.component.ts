@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bug } from './bug.model';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
-import { BugReportService, BugProperties } from '../../bug-report.service';
+import { BugProperties, BugReportService } from '../bug-report.service';
 
 @Component({
   selector: 'bgt7-report-bug',

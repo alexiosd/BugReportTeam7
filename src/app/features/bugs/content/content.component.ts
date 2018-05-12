@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BugReportService, BugProperties } from '../../bug-report.service';
+import { BugReportService, BugProperties } from '../bug-report.service';
 
 @Component({
   selector: 'bgt7-content',
