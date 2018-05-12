@@ -55,7 +55,6 @@ export class ReportBugComponent implements OnInit {
     this.priorityIsValid(this.model.priority);
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
-    debugger;
     if (!form.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
       console.log('error');
       return;
