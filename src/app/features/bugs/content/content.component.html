@@ -1,9 +1,10 @@
 <div class="container">
   <p>small description here</p>
-  <span [routerLink]="['/report']">Report Bug</span>
+  <span [routerLink]="['/report']" class="btn btn-primary">Report Bug</span><br><br>
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th></th>
         <th (click)="sort('title')" data-direction="asc">Title</th>
         <th (click)="sort('priority')">Priority</th>
         <th (click)="sort('reporter')">Reporter</th>
@@ -13,6 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let bug of bugsData">
+        <td> <span [routerLink]="['/report']" class="btn btn-primary">Edit Bug</span></td>
         <td>{{bug.title}}</td>
         <td>{{bug.priority}}</td>
         <td>{{bug.reporter}}</td>
