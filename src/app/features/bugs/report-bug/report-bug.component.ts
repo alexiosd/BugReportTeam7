@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Bug } from './bug.model';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BugProperties, BugReportService } from '../bug-report.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'bgt7-report-bug',
@@ -20,7 +21,7 @@ export class ReportBugComponent implements OnInit {
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
 
-  constructor(private bugs: BugReportService) { }
+  constructor(private bugs: BugReportService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.bugForm = new FormGroup({
@@ -30,6 +31,11 @@ export class ReportBugComponent implements OnInit {
       reporter: new FormControl('', Validators.required),
       status: new FormControl()
     });
+/*
+    this.route.data.subscribe((data: { bugs: Bugs[]}) => {
+      console.log(data.bugs);
+      });
+*/
     /*
     )
     this.model = new Bug();

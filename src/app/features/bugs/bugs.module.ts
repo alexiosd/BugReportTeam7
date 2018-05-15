@@ -7,7 +7,8 @@ import { ReportBugComponent } from './report-bug/report-bug.component';
 
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
-  { path: 'report', component: ReportBugComponent }
+  { path: 'report', component: ReportBugComponent },
+  { path: 'report/:id', component: ReportBugComponent }
 ];
 
 @NgModule({

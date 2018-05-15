@@ -14,7 +14,11 @@ export class BugReportService {
   getBugs(sort: String, dir: String): Observable<Array<BugProperties>> {
     return this.http.get<Array<BugProperties>>(`${this.endpoint}?sort=${sort},${dir}`);
   }
-
+/*
+  putBug(id: String): Observable<BugProperties> {
+    return this.http.put<BugProperties>(`${this.endpoint}/${id}`);
+  }
+*/
   postBug(bug: Bug): Observable<Array<BugProperties>> {
     return this.http.post<Array<BugProperties>>(this.endpoint, bug);
   }
