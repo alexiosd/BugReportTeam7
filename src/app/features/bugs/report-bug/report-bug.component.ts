@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Bug } from './bug.model';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BugProperties, BugReportService } from '../bug-report.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'bgt7-report-bug',
@@ -16,14 +17,19 @@ export class ReportBugComponent implements OnInit {
   priorityValid: boolean;
   reporterValid: boolean;
   statusValid: boolean;
+  bug: BugProperties;
   bugData: BugProperties[];
   priorities = ['minor', 'major', 'critical'];
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
 
-  constructor(private bugs: BugReportService, private route: ActivatedRoute) { }
+  constructor(private bugs: BugReportService, private route: ActivatedRoute) {
+    console.log('Snapshot is: ', this.route.snapshot.params['id']);
+  }
+
 
   ngOnInit() {
+
     this.bugForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -31,11 +37,28 @@ export class ReportBugComponent implements OnInit {
       reporter: new FormControl('', Validators.required),
       status: new FormControl()
     });
-/*
+
+    this.bugs.getBug(this.route.snapshot.params['id'])
+      .subscribe(b => {
+        this.bug = b;
+      });
+
+    this.bugForm.get('reporter').valueChanges.subscribe(value => {
+      const statusFormControl = this.bugForm.get('status');
+
+      if (value === 'QA') {
+        statusFormControl.setValidators(Validators.required);
+      } else {
+        statusFormControl.clearValidators();
+      }
+      statusFormControl.updateValueAndValidity();
+    });
+
+    /*
     this.route.data.subscribe((data: { bugs: Bugs[]}) => {
       console.log(data.bugs);
       });
-*/
+    */
     /*
     )
     this.model = new Bug();
