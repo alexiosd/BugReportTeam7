@@ -97,6 +97,7 @@ export class ReportBugComponent implements OnInit {
     debugger;*/
   }
 
+  /*
   priorityIsValid(event) {
     this.priorityValid = !(this.model.priority === null);
   }
@@ -108,19 +109,27 @@ export class ReportBugComponent implements OnInit {
   statusIsValid(event) {
     this.statusValid = !((this.model.status === null) && (this.model.reporter === 'QA'));
   }
-
+*/
   formSubmit({value}: {value}) {
+    /*
     this.priorityIsValid(this.model.priority);
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
-    if (!this.bugForm.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
+    */
+    if (!this.bugForm.valid ) {
       console.log('error');
       return;
     }
 
-    this.bugs.postBug(this.model).subscribe((data) => {
-      this.bugData = data;
-    });
+    if (this.bugForm.get('id').value === '' ) {
+      this.bugs.postBug(this.bugForm.value).subscribe((data) => {
+        this.bugData = data;
+      });
+    } else {
+      this.bugs.putBug(this.bugForm.value).subscribe((data) => {
+        this.bugData = data;
+      });
+    }
   }
 
 }

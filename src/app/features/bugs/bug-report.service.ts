@@ -23,6 +23,10 @@ export class BugReportService {
     return this.http.post<Array<BugProperties>>(this.endpoint, bug);
   }
 
+  putBug(bug: Bug): Observable<Array<BugProperties>> {
+    return this.http.put<Array<BugProperties>>(this.endpoint, bug);
+  }
+
 }
 
 export interface BugProperties {
