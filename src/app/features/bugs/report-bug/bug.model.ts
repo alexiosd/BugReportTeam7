@@ -7,4 +7,6 @@ export class Bug {
   public priority: number;
   public reporter: string;
   public status: string;
+  public updatedAt: string;
+  public createdAt: string;
 }

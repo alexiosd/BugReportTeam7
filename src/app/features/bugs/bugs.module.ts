@@ -5,6 +5,7 @@ import { BugReportService } from './bug-report.service';
 import { ContentComponent } from './content/content.component';
 import { ReportBugComponent } from './report-bug/report-bug.component';
 import { BugResolver } from './report-bug/bug.resolver';
+import { NullifyStatusPipe } from './report-bug/nullify-status.pipe';
 
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
@@ -17,7 +18,7 @@ export const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ContentComponent, ReportBugComponent ],
+  declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe ],
   providers: [BugReportService],
   exports: [RouterModule]
 })

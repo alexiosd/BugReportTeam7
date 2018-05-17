@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Bug } from './bug.model';
 import { BugProperties, BugReportService } from '../bug-report.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NullifyStatusPipe } from './nullify-status.pipe';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class ReportBugComponent implements OnInit {
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
 
+  // constructor(private bugs: BugReportService, private route: ActivatedRoute, private nullifyStatus: NullifyStatusPipe) {
   constructor(private bugs: BugReportService, private route: ActivatedRoute) {
     console.log('Snapshot is: ', this.route.snapshot.params['id']);
   }
@@ -37,17 +39,25 @@ export class ReportBugComponent implements OnInit {
   ngOnInit() {
 
     this.bugForm = new FormGroup({
+      id: new FormControl(),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       priority: new FormControl('', Validators.required),
       reporter: new FormControl('', Validators.required),
-      status: new FormControl()
+      status: new FormControl(),
+      updatedAt: new FormControl(),
+      createdAt: new FormControl()
     });
 
     this.bugs.getBug(this.route.snapshot.params['id'])
-      .subscribe(b => {
+    // .subscribe( this.nullifyStatus.transform(b) => {
+      .subscribe( b => {
+        if ((b.status === '') || (b.status === undefined)) {
+          b.status = 'null';
+        }
         // this.bug = b;
         this.model = b;
+        this.bugForm.setValue(b);
       });
     this.titleFormControl = this.bugForm.get('title');
 
@@ -99,11 +109,11 @@ export class ReportBugComponent implements OnInit {
     this.statusValid = !((this.model.status === null) && (this.model.reporter === 'QA'));
   }
 
-  formSubmit(form: NgForm) {
+  formSubmit({value}: {value}) {
     this.priorityIsValid(this.model.priority);
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
-    if (!form.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
+    if (!this.bugForm.valid || !this.priorityValid || !this.reporterValid || !this.statusValid) {
       console.log('error');
       return;
     }
