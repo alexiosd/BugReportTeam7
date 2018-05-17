@@ -46,9 +46,9 @@ export class ReportBugComponent implements OnInit {
 
     this.bugs.getBug(this.route.snapshot.params['id'])
       .subscribe(b => {
-        this.bug = b;
+        // this.bug = b;
+        this.model = b;
       });
-
     this.titleFormControl = this.bugForm.get('title');
 
     this.titleFormControl.valueChanges.subscribe( (value: string) => {

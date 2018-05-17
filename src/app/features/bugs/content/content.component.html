@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let bug of bugsData">
-        {{bug | json}}
+        <!-- {{bug | json}} -->
         <td> <span [routerLink]="['/report/' + bug.id]" class="btn btn-primary">Edit Bug</span></td>
         <td>{{bug.title}}</td>
         <td>{{bug.priority}}</td>
