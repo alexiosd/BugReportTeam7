@@ -27,6 +27,12 @@ export class ReportBugComponent implements OnInit {
     console.log('Snapshot is: ', this.route.snapshot.params['id']);
   }
 
+  titleFormControl;
+  titleFormControlErrorMessage = '';
+  titleFormControlValidationMessages = {
+    required : 'The title is required',
+    minlength: 'The minlength is 3 characters'
+  };
 
   ngOnInit() {
 
@@ -42,6 +48,19 @@ export class ReportBugComponent implements OnInit {
       .subscribe(b => {
         this.bug = b;
       });
+
+    this.titleFormControl = this.bugForm.get('title');
+
+    this.titleFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.titleFormControlErrorMessage = '';
+
+      if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
+        this.titleFormControlErrorMessage =
+        Object.keys(this.titleFormControl.errors)
+        .map(c => this.titleFormControlValidationMessages[c]).join(' ');
+      }
+    });
 
     this.bugForm.get('reporter').valueChanges.subscribe(value => {
       const statusFormControl = this.bugForm.get('status');
