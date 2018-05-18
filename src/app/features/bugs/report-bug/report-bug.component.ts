@@ -55,9 +55,10 @@ export class ReportBugComponent implements OnInit {
         if ((b.status === '') || (b.status === undefined)) {
           b.status = 'null';
         }
+        this.buildForm(b); // THIS LINE
         // this.bug = b;
         this.model = b;
-        this.bugForm.setValue(b);
+        // this.bugForm.setValue(b);
       });
     this.titleFormControl = this.bugForm.get('title');
 
@@ -95,6 +96,19 @@ export class ReportBugComponent implements OnInit {
     this.model.reporter = null;
     this.model.status = null;
     debugger;*/
+  }
+
+  private buildForm(bug: Bug) {
+    this.bugForm = new FormGroup({
+      id: new FormControl(bug.id),
+      title: new FormControl(bug.title, Validators.required),
+      description: new FormControl(bug.description, Validators.required),
+      priority: new FormControl(bug.priority, Validators.required),
+      reporter: new FormControl(bug.reporter, Validators.required),
+      status: new FormControl(bug.status),
+      updatedAt: new FormControl(bug.updatedAt),
+      createdAt: new FormControl(bug.createdAt)
+    });
   }
 
   /*
