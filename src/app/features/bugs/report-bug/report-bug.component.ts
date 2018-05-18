@@ -121,12 +121,12 @@ export class ReportBugComponent implements OnInit {
       return;
     }
 
-    if (this.bugForm.get('id').value === '' ) {
-      this.bugs.postBug(this.bugForm.value).subscribe((data) => {
+    if (value.id === null ) {
+      this.bugs.postBug(value).subscribe((data) => {
         this.bugData = data;
       });
     } else {
-      this.bugs.putBug(this.bugForm.value).subscribe((data) => {
+      this.bugs.putBug(value).subscribe((data) => {
         this.bugData = data;
       });
     }

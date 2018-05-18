@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form" (submit)="formSubmit(form)" [formGroup]="bugForm" [class.was-validated]="bugForm.invalid && bugForm.dirty">
+  <form class="form" (submit)="formSubmit(bugForm)" [formGroup]="bugForm" [class.was-validated]="bugForm.invalid && bugForm.dirty">
 
     <div class="form-group">
         <div class="col-md-4 mb-3" hidden>
