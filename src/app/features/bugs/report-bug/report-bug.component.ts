@@ -38,22 +38,26 @@ export class ReportBugComponent implements OnInit {
 
   ngOnInit() {
 
-    const id = this.route.params['id'];
-    if (id) {
-    this.bugs.getBug(id)
-      .subscribe( b => {
-        if ((b.status === '') || (b.status === undefined)) {
-          b.status = 'null';
-        }
-        this.buildForm(b); // THIS LINE
-        // this.bug = b;
-        this.model = b;
-        // this.bugForm.setValue(b);
-      });
-    } else {
-      this.buildForm(new Bug()); // THIS LINE
+  this.route.data.subscribe(data => {
+      console.log(data.bug);
+      this.buildForm(data.bug);
+    });
 
-    }
+      // if (id) {
+      // this.bugs.getBug(id)
+      //   .subscribe( b => {
+      //     if ((b.status === '') || (b.status === undefined)) {
+      //       b.status = 'null';
+      //     }
+      //     this.buildForm(b); // THIS LINE
+      //     // this.bug = b;
+      //     this.model = b;
+      //     // this.bugForm.setValue(b);
+      //   });
+      // } else {
+      //   this.buildForm(new Bug()); // THIS LINE
+
+      // }
     // this.titleFormControl = this.bugForm.get('title');
 
     // this.titleFormControl.valueChanges.subscribe( (value: string) => {
