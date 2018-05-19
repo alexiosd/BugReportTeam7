@@ -24,7 +24,7 @@ export class BugReportService {
   }
 
   putBug(bug: Bug): Observable<Array<BugProperties>> {
-    return this.http.put<Array<BugProperties>>(this.endpoint, bug);
+    return this.http.put<Array<BugProperties>>(`${this.endpoint}/${bug.id}`, bug);
   }
 
 }

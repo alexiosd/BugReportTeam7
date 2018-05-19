@@ -20,7 +20,8 @@ export class ReportBugComponent implements OnInit {
   statusValid: boolean;
   bug: BugProperties;
   bugData: BugProperties[];
-  priorities = ['minor', 'major', 'critical'];
+  priorities = [{title: 'minor', value: 1}, {title: 'major', value: 2}, {title: 'critical', value: 3}];
+
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
   active = false;
