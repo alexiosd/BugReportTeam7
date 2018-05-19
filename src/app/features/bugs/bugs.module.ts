@@ -10,7 +10,8 @@ import { NullifyStatusPipe } from './report-bug/nullify-status.pipe';
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
   { path: 'report', component: ReportBugComponent },
-  { path: 'report/:id', component: ReportBugComponent }
+  { path: 'report/:id', component: ReportBugComponent },
+  // { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
 ];
 
 @NgModule({
