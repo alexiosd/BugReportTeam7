@@ -9,9 +9,9 @@ import { NullifyStatusPipe } from './report-bug/nullify-status.pipe';
 
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
-  { path: 'report', component: ReportBugComponent },
-  { path: 'report/:id', component: ReportBugComponent },
-  // { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
+  { path: 'report', component: ReportBugComponent, data: {bug: {}} },
+  // { path: 'report/:id', component: ReportBugComponent },
+  { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
 ];
 
 @NgModule({
@@ -20,7 +20,7 @@ export const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe ],
-  providers: [BugReportService],
+  providers: [BugReportService, BugResolver],
   exports: [RouterModule]
 })
 export class BugsModule { }

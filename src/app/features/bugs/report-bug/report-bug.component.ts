@@ -23,10 +23,10 @@ export class ReportBugComponent implements OnInit {
   priorities = ['minor', 'major', 'critical'];
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
-
+  active = false;
   // constructor(private bugs: BugReportService, private route: ActivatedRoute, private nullifyStatus: NullifyStatusPipe) {
   constructor(private bugs: BugReportService, private route: ActivatedRoute) {
-    console.log('Snapshot is: ', this.route.snapshot.params['id']);
+    // console.log('Snapshot is: ', this.route.snapshot.params['id']);
   }
 
   titleFormControl;
@@ -38,19 +38,9 @@ export class ReportBugComponent implements OnInit {
 
   ngOnInit() {
 
-    this.bugForm = new FormGroup({
-      id: new FormControl(),
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      priority: new FormControl('', Validators.required),
-      reporter: new FormControl('', Validators.required),
-      status: new FormControl(),
-      updatedAt: new FormControl(),
-      createdAt: new FormControl()
-    });
-
-    this.bugs.getBug(this.route.snapshot.params['id'])
-    // .subscribe( this.nullifyStatus.transform(b) => {
+    const id = this.route.params['id'];
+    if (id) {
+    this.bugs.getBug(id)
       .subscribe( b => {
         if ((b.status === '') || (b.status === undefined)) {
           b.status = 'null';
@@ -60,20 +50,24 @@ export class ReportBugComponent implements OnInit {
         this.model = b;
         // this.bugForm.setValue(b);
       });
-    this.titleFormControl = this.bugForm.get('title');
+    } else {
+      this.buildForm(new Bug()); // THIS LINE
 
-    this.titleFormControl.valueChanges.subscribe( (value: string) => {
+    }
+    // this.titleFormControl = this.bugForm.get('title');
 
-      this.titleFormControlErrorMessage = '';
+    // this.titleFormControl.valueChanges.subscribe( (value: string) => {
 
-      if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
-        this.titleFormControlErrorMessage =
-        Object.keys(this.titleFormControl.errors)
-        .map(c => this.titleFormControlValidationMessages[c]).join(' ');
-      }
-    });
+    //   this.titleFormControlErrorMessage = '';
 
-    this.bugForm.get('reporter').valueChanges.subscribe(value => {
+    //   if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
+    //     this.titleFormControlErrorMessage =
+    //     Object.keys(this.titleFormControl.errors)
+    //     .map(c => this.titleFormControlValidationMessages[c]).join(' ');
+    //   }
+    // });
+
+    /*this.bugForm.get('reporter').valueChanges.subscribe(value => {
       const statusFormControl = this.bugForm.get('status');
 
       if (value === 'QA') {
@@ -109,6 +103,7 @@ export class ReportBugComponent implements OnInit {
       updatedAt: new FormControl(bug.updatedAt),
       createdAt: new FormControl(bug.createdAt)
     });
+    this.active = true;
   }
 
   /*
