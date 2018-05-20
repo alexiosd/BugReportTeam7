@@ -1,0 +1,29 @@
+
+  <div class="btn-group pull-right">
+
+      <div class="pull-left mr-15">
+        <span class="pr-5">Page Size:</span>
+        <select class="form-control page-size"
+                [(ngModel)]="pageSizeValue"
+                (ngModelChange)="onPageSizeValueChange(pageSizeValue)"
+                name="pageSize"
+                id="pageSize">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="5">5</option>
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="15">15</option>
+        </select>
+      </div>
+
+      <button aria-label="Previous" class="page-link btn btn-default btn-sm" tabindex="-1" (click)="changePage(false)">
+          <span aria-hidden="true">
+            <i class="fa fa-chevron-left soft-black"></i>
+          </span>
+        </button>
+
+      <button aria-label="Next" class="page-link btn btn-default btn-sm" tabindex="-1" (click)="changePage(true)">
+          <span aria-hidden="true">
+            <i class="fa fa-chevron-right soft-black"></i>
+          </span>
+      </button>
+    </div>

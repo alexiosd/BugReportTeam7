@@ -27,6 +27,9 @@ export class BugReportService {
     return this.http.put<Array<BugProperties>>(`${this.endpoint}/${bug.id}`, bug);
   }
 
+  searchBug(term: string): Observable<Bug[]> {
+    return this.http.get<Bug[]>(`${this.endpoint}/?title=${term}/?priority=${term}/?reporter=${term}/?status=${term}`);
+  }
 }
 
 export interface BugProperties {

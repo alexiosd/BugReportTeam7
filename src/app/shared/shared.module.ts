@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PagerComponent } from './pager/pager.component';
 
 @NgModule({
   imports: [
@@ -8,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [PagerComponent],
   exports: [
     CommonModule,
     FormsModule,

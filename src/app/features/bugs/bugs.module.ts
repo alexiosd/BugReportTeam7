@@ -7,11 +7,12 @@ import { ReportBugComponent } from './report-bug/report-bug.component';
 import { BugResolver } from './report-bug/bug.resolver';
 import { NullifyStatusPipe } from './report-bug/nullify-status.pipe';
 import { ReportBugCommentsComponent } from './report-bug-comments/report-bug-comments.component';
+import { BugSearchComponent } from './content/bug-search-component/bug-search-component.component';
+
 
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
   { path: 'report', component: ReportBugComponent, data: {bug: {}} },
-  // { path: 'report/:id', component: ReportBugComponent },
   { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
 ];
 
@@ -20,7 +21,7 @@ export const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe, ReportBugCommentsComponent],
+  declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe, ReportBugCommentsComponent, BugSearchComponent],
   providers: [BugReportService, BugResolver],
   exports: [RouterModule]
 })

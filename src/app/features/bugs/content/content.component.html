@@ -3,6 +3,7 @@
   <span [routerLink]="['/report']" class="btn btn-primary">Report Bug</span><br><br>
   <table class="table table-bordered">
     <thead>
+      <tr><bgt7-bug-search-component></bgt7-bug-search-component></tr>
       <tr>
         <th></th>
         <th (click)="sort('title')" data-direction="asc">Title</th>
@@ -24,4 +25,11 @@
       </tr>
     </tbody>
   </table>
+  <app-pager (pageChanged)="onPageChanged($event)"
+  (pageSizeChanged)="onPageSizeChanged($event)"
+  [page]="page"
+  [pageSize]="pageSize">
+</app-pager>
  </div>
+
+

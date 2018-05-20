@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BugReportService, BugProperties } from '../bug-report.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'bgt7-content',
@@ -15,9 +18,13 @@ export class ContentComponent implements OnInit {
 
   direction: String = 'asc'; // "asc", "des"
 
+  page: number;
+  size: number;
 
   ngOnInit() {
     this.getTheBugs(this.key, this.direction);
+    this.page = 0;
+    this.size = 3;
   }
 
   sort(key) {
@@ -36,4 +43,19 @@ export class ContentComponent implements OnInit {
     });
   }
 
+  onPageChanged(upPageByOne) {
+    if (upPageByOne) {
+      this.page++;
+    } else {
+      this.page--;
+    }
+    this.resolveBugs();
+  }
+
+  onPageSizeChanged(pageSizeValue){
+    this.size = pageSizeValue;
+    this.resolveBugs();
+  }
 }
+
+
