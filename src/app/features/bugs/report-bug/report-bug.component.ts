@@ -226,6 +226,10 @@ export class ReportBugComponent implements OnInit {
 
   saveComment(comment: BugComment) {
     console.log(comment);
+    this.model.comments.push(comment);
+    // spread operator ES6
+    // const tempModel = {...this.model, comments: {this.model.comments, comment}}
+    this.bugs.putBug(this.model).subscribe();
   }
 
 }

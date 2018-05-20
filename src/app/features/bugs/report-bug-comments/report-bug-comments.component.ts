@@ -18,7 +18,7 @@ export class ReportBugCommentsComponent implements OnInit, OnChanges {
   ngOnInit() {
    this.commentForm = new FormGroup({
     reporter: new FormControl('', Validators.required),
-    comment: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
   });
   }
 
