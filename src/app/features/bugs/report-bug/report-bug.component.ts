@@ -175,6 +175,7 @@ export class ReportBugComponent implements OnInit {
     if (value.id === null ) {
       this.bugs.postBug(value).subscribe((data) => {
         this.bugData = data;
+        //this.route.navigate(["/list"]);
       });
     } else {
       this.bugs.putBug(value).subscribe((data) => {

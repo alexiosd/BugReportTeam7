@@ -9,14 +9,14 @@
       <div class="col-md-4 mb-3">
         <label class="form-control-label">Title</label>
         <input formControlName="title" class="form-control" type="text" name="title">
-        <div *ngIf="titleFormControlErrorMessage" class="invalid-feedback">
+        <div *ngIf="titleFormControlErrorMessage" class="text-danger">
          {{titleFormControlErrorMessage}}
         </div>
       </div>
       <div class="col-md-12 mb-3">
         <label class="form-control-label">Description</label>
         <textarea formControlName="description" class="form-control" name="description" ></textarea>
-        <div *ngIf="descriptionFormControlErrorMessage" class="invalid-feedback">
+        <div *ngIf="descriptionFormControlErrorMessage" class="text-danger">
           {{descriptionFormControlErrorMessage}}
         </div>
       </div>
