@@ -109,7 +109,6 @@ export class ReportBugComponent implements OnInit {
     this.titleFormControl = this.bugForm.get('title');
 
     this.titleFormControl.valueChanges.subscribe( (value: string) => {
-      console.log('>>>', value);
 
       this.titleFormControlErrorMessage = '';
 
@@ -120,10 +119,13 @@ export class ReportBugComponent implements OnInit {
       }
     });
 
+
+
     this.descriptionFormControl = this.bugForm.get('description');
 
     this.descriptionFormControl.valueChanges.subscribe( (value: string) => {
-      this.descriptionFormControl = '';
+
+      this.descriptionFormControlErrorMessage = '';
 
       if ((this.descriptionFormControl.touched || this.descriptionFormControl.dirty) && this.descriptionFormControl.errors) {
         this.descriptionFormControlErrorMessage =
@@ -167,6 +169,8 @@ export class ReportBugComponent implements OnInit {
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
     */
+
+    
     // if (!this.bugForm.valid ) {
     //   console.log('error');
     //   return;
