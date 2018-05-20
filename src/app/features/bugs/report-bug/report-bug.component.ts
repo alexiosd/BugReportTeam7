@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Bug } from './bug.model';
 import { BugProperties, BugReportService } from '../bug-report.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NullifyStatusPipe } from './nullify-status.pipe';
 import { BugComment } from '../report-bug-comments/bug-comment.model';
 
@@ -27,7 +27,7 @@ export class ReportBugComponent implements OnInit {
   status = ['Ready for test', 'Done', 'Rejected'];
   active = false;
   // constructor(private bugs: BugReportService, private route: ActivatedRoute, private nullifyStatus: NullifyStatusPipe) {
-  constructor(private bugs: BugReportService, private route: ActivatedRoute) {
+  constructor(private bugs: BugReportService, private route: ActivatedRoute , private router: Router) {
     // console.log('Snapshot is: ', this.route.snapshot.params['id']);
   }
 
@@ -184,9 +184,7 @@ export class ReportBugComponent implements OnInit {
     });
 
 
-  }
-
-  
+  }  
 
   private buildForm(bug: Bug) {
     this.bugForm = new FormGroup({
@@ -216,28 +214,14 @@ export class ReportBugComponent implements OnInit {
   }
 */
   formSubmit({value}: {value}) {
-    /*
-    this.priorityIsValid(this.model.priority);
-    this.reporterIsValid(this.model.reporter);
-    this.statusIsValid(this.model.status);
-    */
+    const methodToInvoke = value.id 
+    ? this.bugs.putBug 
+    : this.bugs.postBug 
 
-
-    // if (!this.bugForm.valid ) {
-    //   console.log('error');
-    //   return;
-    // }
-
-    if (value.id === null ) {
-      this.bugs.postBug(value).subscribe((data) => {
-        this.bugData = data;
-        //this.route.navigate(["/list"]);
-      });
-    } else {
-      this.bugs.putBug(value).subscribe((data) => {
-        this.bugData = data;
-      });
-    }
+    methodToInvoke(value).subscribe((data) => {
+      this.bugData = data;
+      //this.router.navigate(["/list"]);
+    });
   }
 
   saveComment(comment: BugComment) {
