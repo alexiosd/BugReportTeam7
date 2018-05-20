@@ -50,7 +50,7 @@
         {{statusFormControlErrorMessage}} Field is required when the reporter is QA.
       </div>
     </div>
-    <bgt7-report-bug-comments [model]="model"></bgt7-report-bug-comments><br><br>
+    <bgt7-report-bug-comments [model]="model" *ngIf="model.id!==undefined" (commentEmitter)="saveComment($event)"></bgt7-report-bug-comments><br><br>
     <button class="btn btn-primary" [disabled]="!bugForm.valid">Submit</button>
   </form>
 </div>

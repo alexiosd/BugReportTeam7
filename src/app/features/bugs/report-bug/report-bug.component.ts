@@ -4,6 +4,7 @@ import { Bug } from './bug.model';
 import { BugProperties, BugReportService } from '../bug-report.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NullifyStatusPipe } from './nullify-status.pipe';
+import { BugComment } from '../report-bug-comments/bug-comment.model';
 
 
 @Component({
@@ -145,6 +146,10 @@ export class ReportBugComponent implements OnInit {
         this.bugData = data;
       });
     }
+  }
+
+  saveComment(comment: BugComment) {
+    console.log(comment);
   }
 
 }

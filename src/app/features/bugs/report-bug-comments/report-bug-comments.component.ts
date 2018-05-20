@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -13,6 +13,7 @@ export class ReportBugCommentsComponent implements OnInit, OnChanges {
   constructor() { }
 
   @Input() model;
+  @Output() commentEmitter = new EventEmitter();
 
   ngOnInit() {
    this.commentForm = new FormGroup({
@@ -23,6 +24,15 @@ export class ReportBugCommentsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.model);
+  }
+
+  formSubmit({value}: {value}) {
+    if (!this.commentForm.valid ) {
+      console.log('error');
+      return;
+    }
+
+    this.commentEmitter.emit(value);
   }
 
 }
