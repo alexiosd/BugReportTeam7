@@ -1,3 +1,5 @@
+import { BugComment } from '../report-bug-comments/bug-comment.model';
+
 export class Bug {
   constructor() {}
 
@@ -9,4 +11,5 @@ export class Bug {
   public status: string;
   public updatedAt: string;
   public createdAt: string;
+  public comments: BugComment[];
 }
