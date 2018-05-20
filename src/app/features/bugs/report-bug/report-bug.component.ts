@@ -215,12 +215,12 @@ export class ReportBugComponent implements OnInit {
 */
   formSubmit({value}: {value}) {
     const methodToInvoke = value.id 
-    ? this.bugs.putBug 
-    : this.bugs.postBug 
+    ? this.bugs.putBug(value)
+    : this.bugs.postBug(value)
 
-    methodToInvoke(value).subscribe((data) => {
-      this.bugData = data;
-      //this.router.navigate(["/list"]);
+    methodToInvoke.subscribe((data) => {
+      // this.bugData = data;
+      this.router.navigate(["/list"]);
     });
   }
 
