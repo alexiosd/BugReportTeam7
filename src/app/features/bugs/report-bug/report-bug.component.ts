@@ -47,8 +47,9 @@ export class ReportBugComponent implements OnInit {
   ngOnInit() {
 
   this.route.data.subscribe(data => {
-      console.log(data.bug);
+      // console.log(data.bug);
       this.buildForm(data.bug);
+      this.model = data.bug;
     });
 
       // if (id) {
