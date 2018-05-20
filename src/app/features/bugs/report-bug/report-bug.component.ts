@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Bug } from './bug.model';
 import { BugProperties, BugReportService } from '../bug-report.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NullifyStatusPipe } from './nullify-status.pipe';
+import { BugComment } from '../report-bug-comments/bug-comment.model';
 
 
 @Component({
@@ -20,60 +21,79 @@ export class ReportBugComponent implements OnInit {
   statusValid: boolean;
   bug: BugProperties;
   bugData: BugProperties[];
-  priorities = ['minor', 'major', 'critical'];
+  priorities = [{title: 'minor', value: 1}, {title: 'major', value: 2}, {title: 'critical', value: 3}];
+
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
-
+  active = false;
   // constructor(private bugs: BugReportService, private route: ActivatedRoute, private nullifyStatus: NullifyStatusPipe) {
-  constructor(private bugs: BugReportService, private route: ActivatedRoute) {
-    console.log('Snapshot is: ', this.route.snapshot.params['id']);
+  constructor(private bugs: BugReportService, private route: ActivatedRoute , private router: Router) {
+    // console.log('Snapshot is: ', this.route.snapshot.params['id']);
   }
 
   titleFormControl;
   titleFormControlErrorMessage = '';
   titleFormControlValidationMessages = {
     required : 'The title is required',
-    minlength: 'The minlength is 3 characters'
+    minlength: 'The minlength is 4 characters'
+  };
+
+  descriptionFormControl;
+  descriptionFormControlErrorMessage = '';
+  descriptionFormControlValidationMessages = {
+    required : 'The description is required',
+    minlength: 'The minlength is 10 characters'
+  };
+
+  priorityFormControl;
+  priorityFormControlErrorMessage = '';
+  priorityFormControlValidationMessages = {
+    required : 'The priority is required'
+  };
+
+  reporterFormControl;
+  reporterFormControlErrorMessage = '';
+  reporterFormControlValidationMessages = {
+    required : 'A reporter is required'
   };
 
   ngOnInit() {
 
-    this.bugForm = new FormGroup({
-      id: new FormControl(),
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      priority: new FormControl('', Validators.required),
-      reporter: new FormControl('', Validators.required),
-      status: new FormControl(),
-      updatedAt: new FormControl(),
-      createdAt: new FormControl()
+  this.route.data.subscribe(data => {
+      // console.log(data.bug);
+      this.buildForm(data.bug);
+      this.model = data.bug;
     });
 
-    this.bugs.getBug(this.route.snapshot.params['id'])
-    // .subscribe( this.nullifyStatus.transform(b) => {
-      .subscribe( b => {
-        if ((b.status === '') || (b.status === undefined)) {
-          b.status = 'null';
-        }
-        this.buildForm(b); // THIS LINE
-        // this.bug = b;
-        this.model = b;
-        // this.bugForm.setValue(b);
-      });
-    this.titleFormControl = this.bugForm.get('title');
+      // if (id) {
+      // this.bugs.getBug(id)
+      //   .subscribe( b => {
+      //     if ((b.status === '') || (b.status === undefined)) {
+      //       b.status = 'null';
+      //     }
+      //     this.buildForm(b); // THIS LINE
+      //     // this.bug = b;
+      //     this.model = b;
+      //     // this.bugForm.setValue(b);
+      //   });
+      // } else {
+      //   this.buildForm(new Bug()); // THIS LINE
 
-    this.titleFormControl.valueChanges.subscribe( (value: string) => {
+      // }
+    // this.titleFormControl = this.bugForm.get('title');
 
-      this.titleFormControlErrorMessage = '';
+    // this.titleFormControl.valueChanges.subscribe( (value: string) => {
 
-      if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
-        this.titleFormControlErrorMessage =
-        Object.keys(this.titleFormControl.errors)
-        .map(c => this.titleFormControlValidationMessages[c]).join(' ');
-      }
-    });
+    //   this.titleFormControlErrorMessage = '';
 
-    this.bugForm.get('reporter').valueChanges.subscribe(value => {
+    //   if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
+    //     this.titleFormControlErrorMessage =
+    //     Object.keys(this.titleFormControl.errors)
+    //     .map(c => this.titleFormControlValidationMessages[c]).join(' ');
+    //   }
+    // });
+
+    /*this.bugForm.get('reporter').valueChanges.subscribe(value => {
       const statusFormControl = this.bugForm.get('status');
 
       if (value === 'QA') {
@@ -96,19 +116,88 @@ export class ReportBugComponent implements OnInit {
     this.model.reporter = null;
     this.model.status = null;
     debugger;*/
-  }
+
+    /*****************************/
+
+    /**
+     * Title Validation
+     */
+    this.titleFormControl = this.bugForm.get('title');
+
+    this.titleFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.titleFormControlErrorMessage = '';
+
+      if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
+        this.titleFormControlErrorMessage =
+        Object.keys(this.titleFormControl.errors)
+        .map(c => this.titleFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+    /**
+     * Description Validation
+     */
+    this.descriptionFormControl = this.bugForm.get('description');
+
+    this.descriptionFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.descriptionFormControlErrorMessage = '';
+
+      if ((this.descriptionFormControl.touched || this.descriptionFormControl.dirty) && this.descriptionFormControl.errors) {
+        this.descriptionFormControlErrorMessage =
+        Object.keys(this.descriptionFormControl.errors)
+        .map(c => this.descriptionFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+    /**
+     * Priority Validation
+     */
+    this.priorityFormControl = this.bugForm.get('priority');
+
+    this.priorityFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.priorityFormControlErrorMessage = '';
+
+      if ((this.priorityFormControl.touched || this.priorityFormControl.dirty) && this.priorityFormControl.errors) {
+        this.descriptionFormControlErrorMessage =
+        Object.keys(this.priorityFormControl.errors)
+        .map(c => this.priorityFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+    /**
+     * Reporter Validation
+     */
+    this.reporterFormControl = this.bugForm.get('reporter');
+
+    this.reporterFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.reporterFormControlErrorMessage = '';
+
+      if ((this.reporterFormControl.touched || this.reporterFormControl.dirty) && this.reporterFormControl.errors) {
+        this.reporterFormControlErrorMessage =
+        Object.keys(this.reporterFormControl.errors)
+        .map(c => this.reporterFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+
+  }  
 
   private buildForm(bug: Bug) {
     this.bugForm = new FormGroup({
       id: new FormControl(bug.id),
-      title: new FormControl(bug.title, Validators.required),
-      description: new FormControl(bug.description, Validators.required),
+      title: new FormControl(bug.title, [Validators.required, Validators.minLength(4)]),
+      description: new FormControl(bug.description, [Validators.required, Validators.minLength(10)]),
       priority: new FormControl(bug.priority, Validators.required),
       reporter: new FormControl(bug.reporter, Validators.required),
       status: new FormControl(bug.status),
       updatedAt: new FormControl(bug.updatedAt),
       createdAt: new FormControl(bug.createdAt)
     });
+    this.active = true;
   }
 
   /*
@@ -125,25 +214,22 @@ export class ReportBugComponent implements OnInit {
   }
 */
   formSubmit({value}: {value}) {
-    /*
-    this.priorityIsValid(this.model.priority);
-    this.reporterIsValid(this.model.reporter);
-    this.statusIsValid(this.model.status);
-    */
-    if (!this.bugForm.valid ) {
-      console.log('error');
-      return;
-    }
+    const methodToInvoke = value.id 
+    ? this.bugs.putBug(value)
+    : this.bugs.postBug(value)
 
-    if (value.id === null ) {
-      this.bugs.postBug(value).subscribe((data) => {
-        this.bugData = data;
-      });
-    } else {
-      this.bugs.putBug(value).subscribe((data) => {
-        this.bugData = data;
-      });
-    }
+    methodToInvoke.subscribe((data) => {
+      // this.bugData = data;
+      this.router.navigate(["/list"]);
+    });
+  }
+
+  saveComment(comment: BugComment) {
+    console.log(comment);
+    this.model.comments.push(comment);
+    // spread operator ES6
+    // const tempModel = {...this.model, comments: {this.model.comments, comment}}
+    this.bugs.putBug(this.model).subscribe();
   }
 
 }

@@ -6,12 +6,13 @@ import { ContentComponent } from './content/content.component';
 import { ReportBugComponent } from './report-bug/report-bug.component';
 import { BugResolver } from './report-bug/bug.resolver';
 import { NullifyStatusPipe } from './report-bug/nullify-status.pipe';
+import { ReportBugCommentsComponent } from './report-bug-comments/report-bug-comments.component';
 
 export const routes: Routes = [
   { path: 'list', component: ContentComponent },
-  { path: 'report', component: ReportBugComponent },
-  { path: 'report/:id', component: ReportBugComponent },
-  // { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
+  { path: 'report', component: ReportBugComponent, data: {bug: {}} },
+  // { path: 'report/:id', component: ReportBugComponent },
+  { path: 'report/:id', component: ReportBugComponent, resolve: { bug: BugResolver } }
 ];
 
 @NgModule({
@@ -19,8 +20,8 @@ export const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe ],
-  providers: [BugReportService],
+  declarations: [ContentComponent, ReportBugComponent, NullifyStatusPipe, ReportBugCommentsComponent],
+  providers: [BugReportService, BugResolver],
   exports: [RouterModule]
 })
 export class BugsModule { }

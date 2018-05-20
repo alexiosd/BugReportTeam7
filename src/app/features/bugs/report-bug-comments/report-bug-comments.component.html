@@ -1,0 +1,28 @@
+<div *ngIf="this.model.comments">
+  <div *ngFor="let comment of this.model.comments">
+    Reporter: {{comment.reporter}}<br>
+    Text: {{comment.description}}
+  </div>
+</div>
+
+<form class="form" (submit)="formSubmit(commentForm)" [formGroup]="commentForm" [class.was-validated]="commentForm.invalid && commentForm.dirty">
+
+  <div class="form-group">
+
+    <div class="col-md-4 mb-3">
+      <label class="form-control-label">Reporter</label>
+      <input formControlName="reporter" class="form-control" type="text" name="reporter">
+      <div *ngIf="reporterFormControlErrorMessage" class="invalid-feedback">
+        {{reporterFormControlErrorMessage}}
+      </div>
+    </div>
+    <div class="col-md-12 mb-3">
+      <label class="form-control-label">Comment</label>
+      <textarea formControlName="description" class="form-control" name="description" ></textarea>
+      <div *ngIf="descriptionFormControlErrorMessage" class="invalid-feedback">
+        {{commentFormControlErrorMessage}}
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled]="!commentForm.valid">Add Comment</button>
+</form>
