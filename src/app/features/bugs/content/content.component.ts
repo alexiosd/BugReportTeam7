@@ -40,7 +40,15 @@ export class ContentComponent implements OnInit {
   getTheBugs(key: String, dir: String) {
     this.bugs.getBugs(key, dir).subscribe((data) => {
       this.bugsData = data;
+      this.resolveBugs();
     });
+  }
+  private resolveBugs() {
+    this.BugReportService
+      .searchBug(this.sort, this.page, this.size)
+      .subscribe(response => {
+        this.bugs = response;
+      });
   }
 
   onPageChanged(upPageByOne) {
