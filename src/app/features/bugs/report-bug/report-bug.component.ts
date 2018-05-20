@@ -34,7 +34,14 @@ export class ReportBugComponent implements OnInit {
   titleFormControlErrorMessage = '';
   titleFormControlValidationMessages = {
     required : 'The title is required',
-    minlength: 'The minlength is 3 characters'
+    minlength: 'The minlength is 4 characters'
+  };
+
+  descriptionFormControl;
+  descriptionFormControlErrorMessage = '';
+  descriptionFormControlValidationMessages = {
+    required : 'The description is required',
+    minlength: 'The minlength is 10 characters'
   };
 
   ngOnInit() {
@@ -95,13 +102,43 @@ export class ReportBugComponent implements OnInit {
     this.model.reporter = null;
     this.model.status = null;
     debugger;*/
+
+    /*****************************/
+    this.titleFormControl = this.bugForm.get('title');
+
+    this.titleFormControl.valueChanges.subscribe( (value: string) => {
+      console.log('>>>', value);
+
+      this.titleFormControlErrorMessage = '';
+
+      if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
+        this.titleFormControlErrorMessage =
+        Object.keys(this.titleFormControl.errors)
+        .map(c => this.titleFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+    this.descriptionFormControl = this.bugForm.get('description');
+
+    this.descriptionFormControl.valueChanges.subscribe( (value: string) => {
+      console.log('>>>DESC', this.descriptionFormControl);
+
+      this.descriptionFormControl = '';
+
+      if ((this.descriptionFormControl.touched || this.descriptionFormControl.dirty) && this.descriptionFormControl.errors) {
+        this.descriptionFormControlErrorMessage =
+        Object.keys(this.descriptionFormControl.errors)
+        .map(c => this.descriptionFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
   }
 
   private buildForm(bug: Bug) {
     this.bugForm = new FormGroup({
       id: new FormControl(bug.id),
-      title: new FormControl(bug.title, Validators.required),
-      description: new FormControl(bug.description, Validators.required),
+      title: new FormControl(bug.title, [Validators.required, Validators.minLength(4)]),
+      description: new FormControl(bug.description, [Validators.required, Validators.minLength(10)]),
       priority: new FormControl(bug.priority, Validators.required),
       reporter: new FormControl(bug.reporter, Validators.required),
       status: new FormControl(bug.status),
@@ -130,10 +167,10 @@ export class ReportBugComponent implements OnInit {
     this.reporterIsValid(this.model.reporter);
     this.statusIsValid(this.model.status);
     */
-    if (!this.bugForm.valid ) {
-      console.log('error');
-      return;
-    }
+    // if (!this.bugForm.valid ) {
+    //   console.log('error');
+    //   return;
+    // }
 
     if (value.id === null ) {
       this.bugs.postBug(value).subscribe((data) => {
