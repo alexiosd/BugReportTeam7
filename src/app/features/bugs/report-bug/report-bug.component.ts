@@ -175,7 +175,7 @@ export class ReportBugComponent implements OnInit {
     if (value.id === null ) {
       this.bugs.postBug(value).subscribe((data) => {
         this.bugData = data;
-        //this.route.navigate(["/list"]);
+        // this.route.navigate(["/list"]);
       });
     } else {
       this.bugs.putBug(value).subscribe((data) => {
@@ -186,6 +186,10 @@ export class ReportBugComponent implements OnInit {
 
   saveComment(comment: BugComment) {
     console.log(comment);
+    this.model.comments.push(comment);
+    // spread operator ES6
+    // const tempModel = {...this.model, comments: {this.model.comments, comment}}
+    this.bugs.putBug(this.model).subscribe();
   }
 
 }
