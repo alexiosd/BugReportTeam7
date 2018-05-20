@@ -7,6 +7,7 @@ import { Bug } from './report-bug/bug.model';
 
 @Injectable()
 export class BugReportService {
+
   private endpoint = 'http://localhost:3001/bugs';
 
   constructor(private http: HttpClient) { }
@@ -27,9 +28,12 @@ export class BugReportService {
     return this.http.put<Array<BugProperties>>(`${this.endpoint}/${bug.id}`, bug);
   }
 
-  searchBug(term: string): Observable<Bug[]> {
-    return this.http.get<Bug[]>(`${this.endpoint}/?title=${term}/?priority=${term}/?reporter=${term}/?status=${term}`);
+  searchBugs(title: String): Observable<Array<BugProperties>> {
+    return this.http.get<Array<BugProperties>>(`${this.endpoint}?title=${title}`);
   }
+
+
+
 }
 
 export interface BugProperties {

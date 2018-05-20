@@ -1,19 +1,51 @@
 <div class="container">
   <p>small description here</p>
+
+
+
   <span [routerLink]="['/report']" class="btn btn-primary">Report Bug</span><br><br>
+
+
+
+  <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+          <!-- <input #firstName="ngModel" minlength="3" required class="form-control" type="text" name="firstName" [ngModel]="model.firstName"
+          (ngModelChange)="capitalize($event)"> -->
+
+          <!-- <input type="text" class="form-control" placeholder="Search the bug"  [(ngModel)]="name"  (ngModelChange)="setValue()"> -->
+
+          <!-- <input [ngModel]="title" (ngModelChange)="title= $event" type="text"> -->
+
+          <!-- <input [(ngModel)]="name"  (ngModelChange)="setValue()" (click)="searchTheBugs('title')" type="text" class="form-control" placeholder="Search the bug" > -->
+
+          <input #theTitle="ngModel" class="form-control" type="text" name="theTitle" [(ngModel)]="model.theTitle"
+          (ngModelChange)="searchme($event)" placeholder="Search the bug">
+
+
+
+        </div>
+      </div>
+    </form>
+
   <table class="table table-bordered">
     <thead>
       <tr><bgt7-bug-search-component></bgt7-bug-search-component></tr>
       <tr>
         <th></th>
-        <th (click)="sort('title')" data-direction="asc">Title</th>
+        <th (click)="sort('title')" data-direction="asc">1Title</th>
         <th (click)="sort('priority')">Priority</th>
         <th (click)="sort('reporter')">Reporter</th>
         <th (click)="sort('dateCreated')">Date Created</th>
         <th (click)="sort('status')">Status</th>
       </tr>
     </thead>
+
     <tbody>
+
+
       <tr *ngFor="let bug of bugsData">
         <!-- {{bug | json}} -->
         <td> <span [routerLink]="['/report/' + bug.id]" class="btn btn-primary">Edit Bug</span></td>

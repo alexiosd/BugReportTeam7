@@ -3,20 +3,20 @@
 
     <div class="form-group">
         <div class="col-md-4 mb-3" hidden>
-            <label class="form-control-label">ID</label>
+            <label class="form-control-label">my ID</label>
             <input formControlName="id" class="form-control" type="text" name="id">
           </div>
       <div class="col-md-4 mb-3">
         <label class="form-control-label">Title</label>
         <input formControlName="title" class="form-control" type="text" name="title">
-        <div *ngIf="titleFormControlErrorMessage" class="invalid-feedback">
+        <div *ngIf="titleFormControlErrorMessage" class="text-danger">
          {{titleFormControlErrorMessage}}
         </div>
       </div>
       <div class="col-md-12 mb-3">
         <label class="form-control-label">Description</label>
         <textarea formControlName="description" class="form-control" name="description" ></textarea>
-        <!-- <div *ngIf="descriptionFormControlErrorMessage" class="invalid-feedback">
+        <div *ngIf="descriptionFormControlErrorMessage" class="text-danger">
           {{descriptionFormControlErrorMessage}}
         </div> -->
       </div>
@@ -28,29 +28,32 @@
         <option [ngValue]="null" >Select</option>
         <option *ngFor="let pri of priorities" value={{pri.value}}>{{pri.title}}</option>
       </select>
-      <!-- <div *ngIf="priorityFormControlErrorMessage" class="invalid-feedback">
+      <div *ngIf="priorityFormControlErrorMessage" class="text-danger">
         {{priorityFormControlErrorMessage}}
-      </div> -->
+      </div>
+
       <br/>
       <label class="form-check-label">Reporter</label>
       <select formControlName="reporter" name="reporter">
         <option [ngValue]="null" >Select</option>
         <option *ngFor="let rep of reporter" value="{{rep}}">{{rep}}</option>
       </select>
-      <!-- <div *ngIf="reporterFormControlErrorMessage" class="invalid-feedback">
+      <div *ngIf="reporterFormControlErrorMessage" class="text-danger">
        {{reporterFormControlErrorMessage}}
       </div> -->
       <br/>
+
       <label class="form-check-label">Status</label>
       <select formControlName="status" name="status">
         <option [ngValue]="null">Select</option>
         <option *ngFor="let sta of status" value="{{sta}}">{{sta}}</option>
       </select>
-      <!-- <div *ngIf="statusFormControlErrorMessage" class="invalid-feedback">
+      <div *ngIf="statusFormControlErrorMessage" class="text-danger">
         {{statusFormControlErrorMessage}} Field is required when the reporter is QA.
       </div> -->
     </div>
-    <!-- <bgt7-report-bug-comments [model]="model" *ngIf="model.id!==undefined" (commentEmitter)="saveComment($event)"></bgt7-report-bug-comments><br><br> -->
+
+    <bgt7-report-bug-comments [model]="model" *ngIf="model.id!==undefined" (commentEmitter)="saveComment($event)"></bgt7-report-bug-comments><br><br>
     <button class="btn btn-primary" [disabled]="!bugForm.valid">Submit</button>
   </form>
 </div>

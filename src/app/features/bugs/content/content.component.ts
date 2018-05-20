@@ -1,8 +1,11 @@
+//import { model } from 'mongoose';
 import { Component, OnInit } from '@angular/core';
 import { BugReportService, BugProperties } from '../bug-report.service';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { switchMap} from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
+import { Searchtitle } from '../../../searchtitle';
 
 @Component({
   selector: 'bgt7-content',
@@ -10,6 +13,8 @@ import { switchMap} from 'rxjs/operators';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
+
+  model: Searchtitle;
 
   constructor(private bugs: BugReportService) { }
 
@@ -23,8 +28,11 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() {
     this.getTheBugs(this.key, this.direction);
-    this.page = 0;
-    this.size = 3;
+    this.model = new Searchtitle();
+  }
+
+  searchme(value) {
+    this.searchTheBugs(value);
   }
 
   sort(key) {
@@ -60,10 +68,17 @@ export class ContentComponent implements OnInit {
     this.resolveBugs();
   }
 
-  onPageSizeChanged(pageSizeValue){
+  onPageSizeChanged(pageSizeValue) {
     this.size = pageSizeValue;
     this.resolveBugs();
   }
+
+  searchTheBugs(title: String) {
+    this.bugs.searchBugs(title).subscribe((data) => {
+      this.bugsData = data;
+    });
+  }
+
 }
 
 
