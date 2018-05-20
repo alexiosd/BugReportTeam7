@@ -45,6 +45,18 @@ export class ReportBugComponent implements OnInit {
     minlength: 'The minlength is 10 characters'
   };
 
+  priorityFormControl;
+  priorityFormControlErrorMessage = '';
+  priorityFormControlValidationMessages = {
+    required : 'The priority is required'
+  };
+
+  reporterFormControl;
+  reporterFormControlErrorMessage = '';
+  reporterFormControlValidationMessages = {
+    required : 'A reporter is required'
+  };
+
   ngOnInit() {
 
   this.route.data.subscribe(data => {
@@ -106,6 +118,10 @@ export class ReportBugComponent implements OnInit {
     debugger;*/
 
     /*****************************/
+
+    /**
+     * Title Validation
+     */
     this.titleFormControl = this.bugForm.get('title');
 
     this.titleFormControl.valueChanges.subscribe( (value: string) => {
@@ -119,8 +135,9 @@ export class ReportBugComponent implements OnInit {
       }
     });
 
-
-
+    /**
+     * Description Validation
+     */
     this.descriptionFormControl = this.bugForm.get('description');
 
     this.descriptionFormControl.valueChanges.subscribe( (value: string) => {
@@ -134,7 +151,42 @@ export class ReportBugComponent implements OnInit {
       }
     });
 
+    /**
+     * Priority Validation
+     */
+    this.priorityFormControl = this.bugForm.get('priority');
+
+    this.priorityFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.priorityFormControlErrorMessage = '';
+
+      if ((this.priorityFormControl.touched || this.priorityFormControl.dirty) && this.priorityFormControl.errors) {
+        this.descriptionFormControlErrorMessage =
+        Object.keys(this.priorityFormControl.errors)
+        .map(c => this.priorityFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+    /**
+     * Reporter Validation
+     */
+    this.reporterFormControl = this.bugForm.get('reporter');
+
+    this.reporterFormControl.valueChanges.subscribe( (value: string) => {
+
+      this.reporterFormControlErrorMessage = '';
+
+      if ((this.reporterFormControl.touched || this.reporterFormControl.dirty) && this.reporterFormControl.errors) {
+        this.reporterFormControlErrorMessage =
+        Object.keys(this.reporterFormControl.errors)
+        .map(c => this.reporterFormControlValidationMessages[c]).join(' ');
+      }
+    });
+
+
   }
+
+  
 
   private buildForm(bug: Bug) {
     this.bugForm = new FormGroup({
@@ -170,7 +222,7 @@ export class ReportBugComponent implements OnInit {
     this.statusIsValid(this.model.status);
     */
 
-    
+
     // if (!this.bugForm.valid ) {
     //   console.log('error');
     //   return;
