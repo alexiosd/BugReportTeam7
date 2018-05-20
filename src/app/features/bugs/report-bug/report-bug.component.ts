@@ -26,10 +26,7 @@ export class ReportBugComponent implements OnInit {
   reporter = ['QA', 'PO', 'DEV'];
   status = ['Ready for test', 'Done', 'Rejected'];
   active = false;
-  // constructor(private bugs: BugReportService, private route: ActivatedRoute, private nullifyStatus: NullifyStatusPipe) {
-  constructor(private bugs: BugReportService, private route: ActivatedRoute , private router: Router) {
-    // console.log('Snapshot is: ', this.route.snapshot.params['id']);
-  }
+  constructor(private bugs: BugReportService, private route: ActivatedRoute , private router: Router) {}
 
   titleFormControl;
   titleFormControlErrorMessage = '';
@@ -60,64 +57,9 @@ export class ReportBugComponent implements OnInit {
   ngOnInit() {
 
   this.route.data.subscribe(data => {
-      // console.log(data.bug);
       this.buildForm(data.bug);
       this.model = data.bug;
     });
-
-      // if (id) {
-      // this.bugs.getBug(id)
-      //   .subscribe( b => {
-      //     if ((b.status === '') || (b.status === undefined)) {
-      //       b.status = 'null';
-      //     }
-      //     this.buildForm(b); // THIS LINE
-      //     // this.bug = b;
-      //     this.model = b;
-      //     // this.bugForm.setValue(b);
-      //   });
-      // } else {
-      //   this.buildForm(new Bug()); // THIS LINE
-
-      // }
-    // this.titleFormControl = this.bugForm.get('title');
-
-    // this.titleFormControl.valueChanges.subscribe( (value: string) => {
-
-    //   this.titleFormControlErrorMessage = '';
-
-    //   if ((this.titleFormControl.touched || this.titleFormControl.dirty) && this.titleFormControl.errors) {
-    //     this.titleFormControlErrorMessage =
-    //     Object.keys(this.titleFormControl.errors)
-    //     .map(c => this.titleFormControlValidationMessages[c]).join(' ');
-    //   }
-    // });
-
-    /*this.bugForm.get('reporter').valueChanges.subscribe(value => {
-      const statusFormControl = this.bugForm.get('status');
-
-      if (value === 'QA') {
-        statusFormControl.setValidators(Validators.required);
-      } else {
-        statusFormControl.clearValidators();
-      }
-      statusFormControl.updateValueAndValidity();
-    });
-
-    /*
-    this.route.data.subscribe((data: { bugs: Bugs[]}) => {
-      console.log(data.bugs);
-      });
-    */
-    /*
-    )
-    this.model = new Bug();
-    this.model.priority = null;
-    this.model.reporter = null;
-    this.model.status = null;
-    debugger;*/
-
-    /*****************************/
 
     /**
      * Title Validation
@@ -200,26 +142,12 @@ export class ReportBugComponent implements OnInit {
     this.active = true;
   }
 
-  /*
-  priorityIsValid(event) {
-    this.priorityValid = !(this.model.priority === null);
-  }
-
-  reporterIsValid(event) {
-    this.reporterValid = !(this.model.reporter === null);
-  }
-
-  statusIsValid(event) {
-    this.statusValid = !((this.model.status === null) && (this.model.reporter === 'QA'));
-  }
-*/
   formSubmit({value}: {value}) {
     const methodToInvoke = value.id 
     ? this.bugs.putBug(value)
     : this.bugs.postBug(value)
 
     methodToInvoke.subscribe((data) => {
-      // this.bugData = data;
       this.router.navigate(["/list"]);
     });
   }
