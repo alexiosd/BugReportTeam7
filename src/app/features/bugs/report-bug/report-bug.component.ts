@@ -122,8 +122,6 @@ export class ReportBugComponent implements OnInit {
     this.descriptionFormControl = this.bugForm.get('description');
 
     this.descriptionFormControl.valueChanges.subscribe( (value: string) => {
-      console.log('>>>DESC', this.descriptionFormControl);
-
       this.descriptionFormControl = '';
 
       if ((this.descriptionFormControl.touched || this.descriptionFormControl.dirty) && this.descriptionFormControl.errors) {
